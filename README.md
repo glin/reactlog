@@ -16,7 +16,7 @@ reactlog extends Shiny with new features that make it easier to debug and trace 
 - Interactive filtering on selected nodes ([rstudio/shiny#1532](https://github.com/rstudio/shiny/issues/1532))
 - Jump to the previous/next flush cycle (i.e. all white nodes) ([rstudio/shiny#1532](https://github.com/rstudio/shiny/issues/1532))
 
-**[Demo](https://glin.github.io/reactlog/articles/demos/react-graph-demo.html)**
+**[Demo](https://glin.github.io/reactlog/articles/demos/react-graph.html)**
 
 
 ## Installation
