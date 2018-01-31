@@ -1,0 +1,86 @@
+---
+title: "Debugging Tips"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Debugging Tips}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+  
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+collapse = TRUE,
+comment = "#>"
+)
+
+library(shiny)
+options(shiny.reactlog = TRUE)
+```
+
+### Set labels to help identify reactives
+
+```{r}
+valA <- reactiveVal(1, label = "A")
+
+createReactive <- function(val, label = NULL) {
+  reactive(val(), label = label)
+}
+
+rxA <- createReactive(valA)
+rxB <- createReactive(valA, label = "rxB")
+
+obs <- observe(rxA() + rxB(), label = "obs")
+shiny:::flushReact()
+
+reactlog::listDependencies(obs)
+```
+
+### Wrap expressions in curly braces for source references
+
+```{r}
+val <- reactiveVal(1, label = "val")
+
+rxA <- reactive(val())  # no curly braces, no source refs
+rxB <- reactive({ val() })
+
+obs <- observe({ rxA() + rxB() }, label = "obs")
+shiny:::flushReact()
+
+val(2)
+reactlog::listDependencies(obs, srcref = TRUE)
+```
+
+### Use `observer$onInvalidate` callbacks
+
+```{r, eval=FALSE}
+library(shiny)
+options(shiny.reactlog = TRUE)
+
+shinyApp(
+  ui = fluidPage(
+    sliderInput("A", "A", 0, 5, 0),
+    sliderInput("B", "B", 0, 5, 0)
+  ),
+  
+  server = function(input, output, session) {
+    rx <- reactive({
+      input$A + input$B
+    })
+
+    obs <- observe({
+      rx()
+    })
+
+    obs$onInvalidate(function() {
+      # slightly less intrusive than placing calls inside the observer
+      reactlog::traceInvalidation(obs)
+      cat("\n")
+      reactlog::listDependencies(obs, invalidated = TRUE)
+    })
+  }
+)
+```
+
+### See also
+
+https://shiny.rstudio.com/articles/debugging.html

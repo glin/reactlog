@@ -1,0 +1,20 @@
+Package: reactlog
+Title: Easier Debugging with the Shiny Reactive Log
+Version: 0.1.0
+Authors@R: person("Greg", "Lin", email = "glin@glin.io", role = c("aut", "cre"))
+Description: Extends Shiny with new features that make it easier to debug and
+    trace reactivity, especially in larger apps.
+Encoding: UTF-8
+License: GPL-3
+URL: https://github.com/glin/reactlog
+BugReports: https://github.com/glin/reactlog/issues
+Depends:
+    R (>= 3.0.0)
+Imports:
+    crayon,
+    jsonlite,
+    R6,
+    shiny (>= 1.0.1)
+Suggests: testthat
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1

@@ -1,0 +1,9 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^README-.*\.png$
+^vignettes$
+^docs$
+^_pkgdown\.yml$
+^\.vscode$
+^\.travis\.yml$

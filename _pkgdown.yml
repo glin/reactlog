@@ -1,0 +1,14 @@
+reference:
+  - title: "Reactive log"
+    contents:
+      - getReactLog
+      - clearReactLog
+      - enableReactLog
+  - title: "Reactive graph"
+    contents:
+      - traceInvalidation
+      - listDependencies
+      - showReactGraph
+      - getReactGraph
+      - getContextNode
+      - getValueNode
