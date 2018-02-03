@@ -1,6 +1,6 @@
 Package: reactlog
 Title: Easier Debugging with the Shiny Reactive Log
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: person("Greg", "Lin", email = "glin@glin.io", role = c("aut", "cre"))
 Description: Extends Shiny with new features that make it easier to debug and
     trace reactivity, especially in larger apps.
