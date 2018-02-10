@@ -31,6 +31,12 @@
 #' }
 showReactGraph <- function(graph = getReactGraph(), time = TRUE,
                            filter = getCurrentContext()) {
+  file <- renderReactGraph(graph = graph, time = time, filter = filter)
+  utils::browseURL(file)
+}
+
+renderReactGraph <- function(graph = getReactGraph(), time = TRUE,
+                             filter = getCurrentContext()) {
   sessionId <- graph$sessionId
   node <- getContextNode(filter, graph = graph)
 
@@ -51,7 +57,7 @@ showReactGraph <- function(graph = getReactGraph(), time = TRUE,
   componentLabels <- getComponentLabels(components)
 
   file <- renderReactLog(log, componentLabels, time = as.logical(time))
-  utils::browseURL(file)
+  file
 }
 
 filterReactLog <- function(log, sessionId = NULL, nodeIds = NULL) {
