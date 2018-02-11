@@ -14,6 +14,7 @@ function jumpNextCycle() {
 function inReactFlush() {
   return Object.keys(nodes).some(function (id) {
     var node = nodes[id];
+    if (node.type === 'isolate') return false;
     return node.running || node.invalidated || node.changed;
   });
 }
