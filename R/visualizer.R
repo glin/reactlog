@@ -40,6 +40,9 @@ reactGraphViewer <- function(session = shiny::getDefaultReactiveDomain(),
                              time = TRUE, filter = getCurrentContext()) {
   if (!reactLogEnabled()) return(NULL)
 
+  # Send reactlog events to the client (doesn't actually enable showcase mode)
+  session$setShowcase(TRUE)
+
   url <- session$registerDataObj("reactgraph", NULL, function(data, req) {
     file <- renderReactGraph(time = time, filter = filter)
     shiny:::httpResponse(content = list(file = file, owned = TRUE))

@@ -121,6 +121,12 @@ function selectNodes(nodeIds) {
   });
 }
 
+function handleMessage(event) {
+  if (!event.data.reactlog) return;
+  var message = event.data.reactlog;
+  console.log(message);
+}
+
 $(function () {
   var html = '<div id="controls">' +
     '<button id="prev-cycle-btn">Prev Cycle</button>' +
@@ -142,4 +148,6 @@ $(function () {
   $('#next-cycle-btn').click(jumpNextCycle);
   $('#filter-selection-btn').click(filterOnSelection);
   $('#reset-filter-btn').click(resetFilter);
+
+  window.addEventListener('message', handleMessage);
 });
