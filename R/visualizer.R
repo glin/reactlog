@@ -35,6 +35,31 @@ showReactGraph <- function(graph = getReactGraph(), time = TRUE,
   utils::browseURL(file)
 }
 
+#' @export
+reactGraphViewer <- function(session = shiny::getDefaultReactiveDomain(),
+                             time = TRUE, filter = getCurrentContext()) {
+  if (!reactLogEnabled()) return(NULL)
+
+  url <- session$registerDataObj("reactgraph", NULL, function(data, req) {
+    file <- renderReactGraph(time = time, filter = filter)
+    shiny:::httpResponse(content = list(file = file, owned = TRUE))
+  })
+
+  session$sendCustomMessage("reactgraph", list(url = url))
+}
+
+#' @export
+reactlogLib <- function() {
+  if (!reactLogEnabled()) return(NULL)
+
+  htmltools::htmlDependency(
+    "reactlog",
+    utils::packageVersion("reactlog"),
+    system.file("www", package = "reactlog"),
+    script = "reactlog.js"
+  )
+}
+
 renderReactGraph <- function(graph = getReactGraph(), time = TRUE,
                              filter = getCurrentContext()) {
   sessionId <- graph$sessionId

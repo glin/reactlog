@@ -13,6 +13,7 @@ Depends:
 Imports:
     crayon,
     jsonlite,
+    htmltools,
     R6,
     shiny (>= 1.0.1)
 Suggests: testthat
