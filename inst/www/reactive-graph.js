@@ -95,14 +95,31 @@ function initializeLog(newLog, newTotalSteps) {
   executeBeforeNextCommand = [];
   totalSteps = (newTotalSteps != null) ? newTotalSteps : countSteps();
 
-  // hide end message triggered by countSteps()
-  $('#ended').stop(true).hide();
-
   doNext();
 
   while (undoStack.length) {
     undoStack.pop();
   }
+}
+
+// Faster countSteps() that avoids having to step through the graph
+function countSteps() {
+  var steps = 0;
+  var shownValues = Object.keys(nodes).reduce(function (values, id) {
+    var node = nodes[id];
+    if (node.type === 'value' && !node.hide) values[id] = true;
+    return values;
+  }, {});
+
+  log.forEach(function (event) {
+    var action = event.action;
+    if (action === 'ctx') return;
+    if (action === 'valueChange' && !shownValues[event.id]) return;
+    if (action === 'dep') shownValues[event.dependsOn] = true;
+    steps++;
+  });
+
+  return steps;
 }
 
 function jumpToMessage(message) {
