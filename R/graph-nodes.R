@@ -127,11 +127,7 @@ ValueNode <- R6::R6Class("ValueNode",
     },
 
     format = function(verbose = getOption("reactlog.verbose", FALSE), ...) {
-      status <- paste0(
-        self$status,
-        if (self$changed) sprintf(" => %s", self$nextNode$value),
-        if (self$isInitial) " (initial)"
-      )
+      status <- paste0(self$status, if (self$isInitial) " (initial)")
 
       fields <- list(
         id = if (verbose) self$id,
