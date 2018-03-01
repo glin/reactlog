@@ -158,7 +158,7 @@ ValueNode <- R6::R6Class("ValueNode",
 
       if (value && changed && self$changed) {
         label <- paste(label, colorGrey("=>", self$nextNode$value))
-      } else if (value) {
+      } else if (value && !is.null(self$value)) {
         label <- paste(label, colorGrey("=", self$value))
       }
 
