@@ -29,7 +29,7 @@ getContextNode <- function(x = getCurrentContext(), graph = getReactGraph(),
       return(NULL)
     }
 
-    msg <- sprintf('Could not find a context with ID "%s" in the reactive graph:', ctxId)
+    msg <- sprintf('Could not find a context with ID "%s" in the reactive graph', ctxId)
 
     if (!reactLogEnabled()) {
       msg <- paste0(
