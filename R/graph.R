@@ -21,6 +21,19 @@
 getReactGraph <- function(session = shiny::getDefaultReactiveDomain()) {
   sessionId <- if (is.character(session)) session else session$token
   graph <- .getGraph(sessionId = sessionId)
+
+  if (!is.ReactGraph(graph)) {
+    msg <- sprintf('Could not find a reactive graph for a session with ID "%s"', sessionId)
+
+    if (!reactLogEnabled()) {
+      msg <- paste0(
+        msg, "\n",
+        "Did you enable the reactive log? See ?getReactGraph")
+    }
+
+    stop(msg, call. = FALSE)
+  }
+
   graph
 }
 
