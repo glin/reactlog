@@ -4,10 +4,10 @@
 
 reactlog extends Shiny with new features that make it easier to debug and trace reactivity, especially in larger apps.
 
-#### Analyze the reactive log from R
+#### Analyze the reactive log in R
 
 - Print the call stack that caused invalidation ([rstudio/shiny#1846](https://github.com/rstudio/shiny/issues/1846))
-- List reactive dependencies
+- List reactive dependencies in a tree structure
 
 **[Demo](https://shiny.glin.io/reactlog-demo)**
 
@@ -15,6 +15,7 @@ reactlog extends Shiny with new features that make it easier to debug and trace 
 
 - Interactive filtering on selected nodes ([rstudio/shiny#1532](https://github.com/rstudio/shiny/issues/1532))
 - Jump to the previous/next flush cycle (i.e. all white nodes) ([rstudio/shiny#1532](https://github.com/rstudio/shiny/issues/1532))
+- Performance improvements
 
 **[Demo](https://glin.github.io/reactlog/articles/demos/react-graph.html)**
 
