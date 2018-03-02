@@ -175,3 +175,22 @@ test_that("traceInvalidation works on a previously invalidated context", {
   expect_length(stack1, 5)
   expect_identical(stack1, stack2)
 })
+
+test_that("traceInvalidation handles isolate expressions that set and get a reactive value", {
+  val <- reactiveVal(1)
+
+  obs <- observe({
+    val()
+  })
+
+  shiny:::flushReact()
+
+  isolate({
+    val(val() + 1)
+  })
+
+  stack <- expect_output(traceInvalidation(obs))
+  expect_length(stack, 3)
+  expect_identical(stack[[2]], getValueNode(val)$prevNode)
+  expect_identical(stack[[3]]$type, "isolate")
+})
