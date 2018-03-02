@@ -156,8 +156,11 @@ eventProcessors <- list(
       }
     }
 
-    if (is.null(ctx$invalidatedBy)) {
-      ctx$invalidatedBy <- graph$.ctxStack$peek()
+    if (ctx$type == "isolate") {
+      # isolate is a special case. It invalidates itself, but only on exit.
+      # If one of its dependencies change while running, it can appear to be
+      # invalidated by that dependency in the reactive log.
+      ctx$invalidatedBy <- NULL
     }
   },
 

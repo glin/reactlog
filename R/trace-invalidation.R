@@ -71,8 +71,8 @@ traceInvalidation <- function(x = getCurrentContext(), graph = getReactGraph(),
 
   stack <- list(node)
 
-  while (!is.null(node$invalidatedBy)) {
-    node <- node$invalidatedBy
+  while (!is.null(node$invalidatedBy %OR% node$callingCtx)) {
+    node <- node$invalidatedBy %OR% node$callingCtx
     stack[[length(stack) + 1]] <- node
   }
 
