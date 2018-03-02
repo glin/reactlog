@@ -100,6 +100,8 @@ eventProcessors <- list(
     ctx$execCount <- ctx$execCount + 1
     ctx$timeEnter <- e$time
 
+    ctx$callingCtx <- graph$.ctxStack$peek()
+
     graph$.ctxStack$push(ctx)
   },
 

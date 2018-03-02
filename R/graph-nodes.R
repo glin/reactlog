@@ -8,6 +8,8 @@ ContextNode <- R6::R6Class("ContextNode",
     invalidated = FALSE,
     invalidatedBy = NULL,
 
+    callingCtx = NULL,
+
     prevNode = NULL,
     nextNode = NULL,
 
